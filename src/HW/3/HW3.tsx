@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 export const HW3 = () => {
     // 1️⃣ Раскомментируйте JSX(HW3.tsx) и вы увидите,
     // что приложение начнет гореть красным и ругаться 😡
@@ -10,32 +9,39 @@ export const HW3 = () => {
     // - приложение должно компилироваться и запускаться в браузере
 
 
-    const [currentText, setCurrentText] = useState('');
+    const [currentText, setCurrentText] = useState<string>('');
     const [texts, setTexts] = useState<string[]>([
         'То, что вы делаете по ночам, то и делает вас богатым. (Аль Капоне)',
     ]);
 
-    const handleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
         setCurrentText(e.currentTarget.value)
     };
 
-    const handleSave = () => {
-        setTexts(currentText ? [...texts, currentText] : texts)
-        setCurrentText('')
-    };
+    const handleSave = (): void => {
+        setTexts([...texts, currentText]);
+        setCurrentText('');
+
+    }
 
     return (
         <div id={'hw03'}>
             {
                 currentText ?
-                    <h1 id={'hw03-text'}>ЗДЕСЬ ХОТЕЛОСЬ БЫ УВИДЕТЬ ВВОДИМЫЙ ТЕКСТ</h1>
+                    <h1 id={'hw03-text'}>{currentText}</h1>
                     :
                     <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1>
             }
 
-            <input id={'hw03-input'} type="text" value={currentText} onChange={(e) => handleChange}/>
+            <input
+                id={'hw03-input'}
+                type="text"
+                value={currentText}
+                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>): void => (event.key === 'Enter') ? handleSave() : undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event)}/>
 
-            <button id={'hw03-button'} onClick={handleSave}></button>
+
+            <button id={'hw03-button'} onClick={handleSave}>Сохранить</button>
 
             <h1 style={{marginTop: '50px'}}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>
 
