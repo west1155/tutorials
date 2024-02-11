@@ -1,14 +1,17 @@
+import React, {useRef} from "react";
+
 type InputPropsType = {
-	currentText: any // НУЖНО ПРОТИПИЗИРОВАТЬ
-	setCurrentText: any // НУЖНО ПРОТИПИЗИРОВАТЬ
+	currentText: string
+	setCurrentText: (e: string) => void
 };
 
-export const Input = (props: InputPropsType) => {
-	const onChangeHandler = (event: 'НУЖНО ПРОТИПИЗИРОВАТЬ') => {
-		// НУЖНО ДОПИСАТЬ
+export const Input: React.FC<InputPropsType> = ({setCurrentText, currentText}) => {
+	const textRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
+	const onChangeHandler = () => {
+		textRef.current?.value && setCurrentText(textRef.current?.value)
 	};
 
-	// return (
-	//   <input id={'hw04-input'} type="text" value={props.currentText} onChange={onChangeHandler} />
-	// );
+	return (
+	   <input id={'hw04-input'} value={currentText} ref={textRef} type="text" onChange={onChangeHandler}  />
+	 );
 };

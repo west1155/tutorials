@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-export const HW3 = () => {
+
+type HandleChange = (e:React.ChangeEvent<HTMLInputElement>) => void
+
+
+export const HW3: React.FC = () => {
+
     // 1️⃣ Раскомментируйте JSX(HW3.tsx) и вы увидите,
     // что приложение начнет гореть красным и ругаться 😡
     // 2️⃣ Ваша задача: ❗ПОЧИНИТЬ ПРОЕКТ❗
@@ -14,11 +19,11 @@ export const HW3 = () => {
         'То, что вы делаете по ночам, то и делает вас богатым. (Аль Капоне)',
     ]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
+    const handleChange: HandleChange = (e) : void => {
         setCurrentText(e.currentTarget.value)
     };
 
-    const handleSave = (): void => {
+    const handleSave = () => {
         setTexts([...texts, currentText]);
         setCurrentText('');
 
